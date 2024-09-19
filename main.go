@@ -3,41 +3,16 @@ package main
 import (
 	"fmt"
 	"ncc-select/client"
-	"os"
-	"strings"
+	"time"
 )
 
 func main() {
 	c := client.NewClient()
 
-	config, err := os.ReadFile("config")
-	if err != nil {
-		fmt.Println("读取配置文件失败: ", err)
-		return
-	}
-
-	lines := strings.Split(string(config), "\n")
-	username := strings.TrimSpace(lines[0])
-	password := strings.TrimSpace(lines[1])
-
-	// 获取验证码图片
-	img, uuid, err := c.GetCapchaImage()
-	os.WriteFile("captcha.jpg", img, 0644)
-	if err != nil {
-		fmt.Println("获取验证码图片失败: ", err)
-		return
-	}
-	fmt.Printf("输入验证码, 在当前目录下captcha.jpg中查看验证码图片: ")
-	var code string
-	fmt.Scanln(&code)
-
-	err = c.Login(username, password, code, uuid)
-	if err != nil {
-		fmt.Println("登录失败: ", err)
-		return
-	}
-
-	fmt.Println("登录成功")
+	fmt.Println("输入TOKEN: ")
+	var token string
+	fmt.Scanln(&token)
+	c.SetToken(token)
 
 	courses, err := c.GetCourses()
 	if err != nil {
@@ -48,6 +23,24 @@ func main() {
 	fmt.Println("课程列表:")
 	for _, course := range courses {
 		fmt.Printf("%+v\n", course)
+	}
+
+	fmt.Println("按回车键开始选课")
+	fmt.Scanln()
+
+	for {
+		startTime := time.Now()
+		err = c.SelectCourse(client.Course{
+			CourseId: 1141,
+		})
+		end := time.Now()
+		if err != nil {
+			fmt.Printf("选课失败: %s, 耗时: %s, now: %s\n", err, end.Sub(startTime), end)
+			time.Sleep(100 * time.Millisecond)
+		} else {
+			fmt.Println("选课成功")
+			break
+		}
 	}
 
 }

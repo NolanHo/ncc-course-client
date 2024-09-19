@@ -2,9 +2,9 @@ package client
 
 import (
 	"encoding/base64"
+	"encoding/json"
 	"time"
 
-	"github.com/bytedance/sonic"
 	"github.com/imroc/req/v3"
 	"github.com/sirupsen/logrus"
 )
@@ -36,7 +36,7 @@ func (c *Client) GetCapchaImage() ([]byte, string, error) {
 	}
 
 	res := &Response{}
-	sonic.Unmarshal(resp.Bytes(), res)
+	json.Unmarshal(resp.Bytes(), res)
 	if res.Code != 200 {
 		logrus.Errorf("get capcha image failed: %s", res.Msg)
 		return nil, "", err
@@ -78,7 +78,7 @@ func (c *Client) Login(username string, password string, code string, uuid strin
 		return err
 	}
 
-	sonic.Unmarshal(res.Bytes(), resp)
+	json.Unmarshal(res.Bytes(), resp)
 	if resp.Code != 200 {
 		logrus.Errorf("login failed: %s", resp.Msg)
 		return err

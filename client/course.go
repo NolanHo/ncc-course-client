@@ -1,9 +1,10 @@
 package client
 
 import (
+	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/bytedance/sonic"
+
 	"github.com/sirupsen/logrus"
 )
 
@@ -44,7 +45,7 @@ func (c *Client) GetCourses() ([]Course, error) {
 		return nil, err
 	}
 
-	sonic.Unmarshal(res.Bytes(), resp)
+	json.Unmarshal(res.Bytes(), resp)
 	if resp.Code != 200 {
 		logrus.Errorf("get courses failed: %s", resp.Msg)
 		return nil, err
@@ -74,7 +75,7 @@ func (c *Client) getCourseClassNumber(course *Course) error {
 		return errors.New("get class number failed")
 	}
 
-	sonic.Unmarshal(res.Bytes(), resp)
+	json.Unmarshal(res.Bytes(), resp)
 	if resp.Code != 200 {
 		logrus.Errorf("get class number failed: %s", resp.Msg)
 		return errors.New("get class number failed")
@@ -115,7 +116,7 @@ func (c *Client) SelectCourse(course Course) error {
 		return errors.New("select course failed")
 	}
 
-	sonic.Unmarshal(res.Bytes(), resp)
+	json.Unmarshal(res.Bytes(), resp)
 	if resp.Code != 200 {
 		switch resp.Msg {
 		case "选课人数已达上限！":

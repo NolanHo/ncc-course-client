@@ -4,7 +4,7 @@ import "testing"
 
 func TestClient_GetCourses(t *testing.T) {
 	c := NewClient()
-	c.SetToken("eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbl91c2VyX2tleSI6IjhlMDFmNWMxLTJkOTAtNDBkNi1hOTIwLTY5MjMxNzg3NTNhZiJ9.gCstFDqgDcks_fEqOJlkDqcIwtPbrX7GnlRbA0l-MjjBffLLuHppllgs9ag1HhCdDsSwZxuW2MC6oNmA65IpOw")
+	c.SetToken("eeSI6IjE5ZmNhYmEzLTE3MDEtNDNhYS1iODk4LTkxNDBhMjRjOGE3YiJ9.Kjnbq7MIBGvJbaG_aOAkGDQWJJ0RNdKW9gFOhS_256L1dziAmKybHtixOYrdVEkrn1PdxlMEpjb5dP0vcd7ydA")
 	courses, err := c.GetCourses()
 	if err != nil {
 		t.Errorf("GetCourses() failed: %v", err)
@@ -16,9 +16,9 @@ func TestClient_GetCourses(t *testing.T) {
 
 func TestClient_SelectCourse(t *testing.T) {
 	c := NewClient()
-	c.SetToken("eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbl91c2VyX2tleSI6IjhlMDFmNWMxLTJkOTAtNDBkNi1hOTIwLTY5MjMxNzg3NTNhZiJ9.gCstFDqgDcks_fEqOJlkDqcIwtPbrX7GnlRbA0l-MjjBffLLuHppllgs9ag1HhCdDsSwZxuW2MC6oNmA65IpOw")
+	c.SetToken("eyJhbGciOiIjE5ZmNhYmEzLTE3MDEtNDNhYS1iODk4LTkxNDBhMjRjOGE3YiJ9.Kjnbq7MIBGvJbaG_aOAkGDQWJJ0RNdKW9gFOhS_256L1dziAmKybHtixOYrdVEkrn1PdxlMEpjb5dP0vcd7ydA")
 	course := Course{
-		CourseId: 1089,
+		CourseId: 1141,
 	}
 	err := c.SelectCourse(course)
 	if err != nil {
